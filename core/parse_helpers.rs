@@ -998,7 +998,12 @@ where
             index += 1;
         }
     }
-    Ok(tokens.into_iter())
+
+    if !tokens.is_empty() {
+        Ok(tokens.into_iter())
+    } else {
+        Err(syn::Error::new(Span::call_site(), "no attributes found"))
+    }
 }
 
 /// Gets the first [`Span`](proc_macro2::Span) in a list of path names and spans.
